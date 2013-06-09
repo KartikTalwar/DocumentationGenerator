@@ -66,6 +66,48 @@ class DocGenerator
 
     private function make_parameters()
     {
+        $out  = $this->_h(2, 'Parameters');
+        $out .= $this->handle_input_params($this->data->method_parameters);
+        $out .= $this->handle_filter_params($this->data->method_parameters);
+        $out .= $this->_n();
+
+        return $out;
+    }
+
+
+    private function handle_input_params($arr)
+    {
+        $out = $this->_h(3, 'Input');
+
+        foreach($arr as $i)
+        {
+            if($i->type == 'input')
+            {
+                $out .= '- **'.$i->parameter.'** - '.$i->description.$this->_n(1);
+                if($i->parameter == 'format')
+                {
+                    $out .= $this->_list($this->data->response_formats, 2);
+                }
+            }
+        }
+
+        return $out.$this->_n();
+    }
+
+
+    private function handle_filter_params($arr)
+    {
+        $out = $this->_h(3, 'Filter');
+
+        foreach($arr as $i)
+        {
+            if($i->type == 'filter')
+            {
+                $out .= '- **'.$i->parameter.'** - '.$i->description.$this->_n(1);
+            }
+        }
+
+        return $out.$this->_n();
     }
 
 
@@ -79,13 +121,13 @@ class DocGenerator
     }
 
 
-    private function _list($arr)
+    private function _list($arr, $pad=0)
     {
         $out = '';
 
         foreach($arr as $i)
         {
-            $out .= '- '. $i;
+            $out .= str_repeat(' ', $pad).'- '. $i.$this->_n(1);
         }
 
         return $out;
