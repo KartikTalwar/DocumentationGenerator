@@ -151,25 +151,6 @@ class DocGenerator
     }
 
 
-    private function _row($l, $r, $m=null, $n=null, $b_all=false) {
-        if($b_all) {
-            $r = '<b>'.$r.'</b>';
-            $m = ($m != null) ? '<b>'.$m.'</b>' : null;
-            $n = ($n != null) ? '<b>'.$n.'</b>' : null;
-        }
-
-        $x = ($m != null && $n != null) ? '<b>'.$m.'</b>': $m;
-
-        $out  = "  <tr>\n    <td><b>$l</b></td>\n";
-        $out .= "    <td>$r</td>\n";
-        $out .= ($m != null) ? "    <td>$x</td>\n" : '';
-        $out .= ($n != null) ? "    <td>$n</td>\n" : '';
-        $out .= "  </tr>\n";
-
-        return $out;
-    }
-
-
     private function make_output() {
         $out  = $this->_h(1, 'Output');
         $out .= $this->_h(4, 'JSON')."```json\n";
@@ -206,6 +187,42 @@ class DocGenerator
     }
 
 
+    public function compile() {
+        $md  = '';
+        $md .= $this->make_header();
+        $md .= $this->make_call();
+        $md .= $this->make_description();
+        $md .= $this->make_summary();
+        $md .= $this->make_notes();
+        $md .= $this->make_sources();
+        $md .= $this->make_parameters();
+        $md .= $this->make_examples();
+        $md .= $this->make_response();
+        $md .= $this->make_output();
+
+        return $md;
+    }
+
+
+    private function _row($l, $r, $m=null, $n=null, $b_all=false) {
+        if($b_all) {
+            $r = '<b>'.$r.'</b>';
+            $m = ($m != null) ? '<b>'.$m.'</b>' : null;
+            $n = ($n != null) ? '<b>'.$n.'</b>' : null;
+        }
+
+        $x = ($m != null && $n != null) ? '<b>'.$m.'</b>': $m;
+
+        $out  = "  <tr>\n    <td><b>$l</b></td>\n";
+        $out .= "    <td>$r</td>\n";
+        $out .= ($m != null) ? "    <td>$x</td>\n" : '';
+        $out .= ($n != null) ? "    <td>$n</td>\n" : '';
+        $out .= "  </tr>\n";
+
+        return $out;
+    }
+
+
     private function _list($arr, $pad=0) {
         $out = '';
 
@@ -229,23 +246,6 @@ class DocGenerator
 
     private function _n($i=2) {
         return str_repeat("\n", $i);
-    }
-
-
-    public function compile() {
-        $md  = '';
-        $md .= $this->make_header();
-        $md .= $this->make_call();
-        $md .= $this->make_description();
-        $md .= $this->make_summary();
-        $md .= $this->make_notes();
-        $md .= $this->make_sources();
-        $md .= $this->make_parameters();
-        $md .= $this->make_examples();
-        $md .= $this->make_response();
-        $md .= $this->make_output();
-
-        return $md;
     }
 
 }
