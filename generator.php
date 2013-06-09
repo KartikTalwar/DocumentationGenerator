@@ -197,10 +197,10 @@ class DocGenerator
     {
         $out  = $this->_h(1, 'Output');
         $out .= $this->_h(4, 'JSON')."```json\n";
-        $out .= file_get_contents($this->api_prefix.$this->data->request_examples[0]);
+        $out .= file_get_contents($this->data->request_examples[0]);
         $out .= "\n```".$this->_n();
         $out .= $this->_h(4, 'XML')."```xml\n";
-        $out .= file_get_contents(str_replace('json', 'xml', $this->api_prefix.$this->data->request_examples[0]));
+        $out .= file_get_contents(str_replace('json', 'xml', $this->data->request_examples[0]));
         $out .= "\n```".$this->_n();
 
         return $out;
