@@ -6,24 +6,63 @@ class DocGenerator
 
     public $api_prefix;
     public $data_file;
+    public $data;
 
 
     public function __construct($schema_file)
     {
         $this->data_file = $schema_file;
+        $this->load_data();
     }
 
 
     private function load_data()
     {
-        $get = file_get_contents($this->data_file);
-        return $get;
+        $get  = file_get_contents($this->data_file);
+        $load = json_decode($get);
+
+        $this->data = $load;
     }
 
 
+    private function make_header()
+    {
+        $out  = $this->_h(1, $this->data->method_name);
+        $out .= $this->_n();
+
+        return $out;
+    }
+
+
+    private function make_call()
+    {
+        $out  = "```\n";
+        $out .= $this->data->request_protocol.' '.$this->data->method_url;
+        $out .= "\n```";
+        $out .= $this->_n();
+
+        return $out;
+    }
+
+
+    private function _h($i, $str)
+    {
+        return str_repeat('#', $i).' '.$str;
+    }
+
+
+    private function _n($i=2)
+    {
+        return str_repeat("\n", $i);
+    }
+
     public function compile()
     {
-        return $this->load_data();
+        $md  = '';
+        $md .= $this->make_header();
+        $md .= $this->make_call();
+
+        return $md;
     }
 
 }
