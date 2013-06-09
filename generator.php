@@ -157,7 +157,7 @@ class DocGenerator
             $child = $i->children;
             if($child)
             {
-                $out .= $this->_row($i->field, $i->type, $this->make_response($child));
+                $out .= $this->_row($i->field, $i->type, $i->description."<br>".$this->make_response($child));
             }
             else
             {
