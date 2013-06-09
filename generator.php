@@ -125,7 +125,7 @@ class DocGenerator
     {
         $out  = $this->_h(2, 'Summary');
         $out .= "<table>\n";
-        $out .= $this->_row('Name', 'Value');
+        $out .= $this->_row('Name', 'Value', true);
         $out .= $this->_row('Request Protocol', $this->data->request_protocol);
         $out .= $this->_row('Method ID', $this->data->method_id);
         $out .= $this->_row('Service Name', $this->data->service_name);
@@ -142,8 +142,13 @@ class DocGenerator
     }
 
 
-    private function _row($l, $r)
+    private function _row($l, $r, $b_all=false)
     {
+        if($b_all)
+        {
+            $r = '<b>'.$r.'</b>';
+        }
+
         $out  = "  <tr>\n    <td><b>$l</b></td>\n";
         $out .= "    <td>$r</td>\n  </tr>\n";
 
