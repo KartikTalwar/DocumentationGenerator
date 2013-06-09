@@ -83,7 +83,10 @@ class DocGenerator
         {
             if($i->type == 'input')
             {
-                $out .= '- **'.$i->parameter.'** - '.$i->description.$this->_n(1);
+                $out .= '- **'.$i->parameter.'** - '.$i->description.'  ';
+                $out .= ($i->is_required) ? '*(required)*' : '*(optional)*' ;
+                $out .= $this->_n(1);
+
                 if($i->parameter == 'format')
                 {
                     $out .= $this->_list($this->data->response_formats, 2);
@@ -103,7 +106,9 @@ class DocGenerator
         {
             if($i->type == 'filter')
             {
-                $out .= '- **'.$i->parameter.'** - '.$i->description.$this->_n(1);
+                $out .= '- **'.$i->parameter.'** - '.$i->description. '  ';
+                $out .= ($i->is_required) ? '*(required)*' : '*(optional)*' ;
+                $out .= $this->_n(1);
             }
         }
 

@@ -41,9 +41,9 @@
                             "type"        : "input"
                            },
                            {
-                            "parameter"   : "callbacl",
+                            "parameter"   : "callback",
                             "description" : "JSONP callback format",
-                            "is_required" : true,
+                            "is_required" : false,
                             "type"        : "filter"
                            }
                           ],
