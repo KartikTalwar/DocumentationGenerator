@@ -69,7 +69,6 @@ class DocGenerator
         $out  = $this->_h(2, 'Parameters');
         $out .= $this->handle_input_params($this->data->method_parameters);
         $out .= $this->handle_filter_params($this->data->method_parameters);
-        $out .= $this->_n();
 
         return $out;
     }
@@ -121,6 +120,31 @@ class DocGenerator
     }
 
 
+    private function make_examples()
+    {
+        $out  = $this->_h(2, 'Examples');
+        $out .= $this->make_call();
+        $out .= $this->handle_urls();
+        $out .= $this->_n();
+
+        return $out;
+    }
+
+
+    private function handle_urls()
+    {
+        $out  = '```'.$this->_n(1);
+
+        foreach($this->data->request_examples as $i)
+        {
+            $out .= $i.$this->_n(1);
+        }
+
+        $out .= '```';
+        return $out;
+    }
+
+
     private function _list($arr, $pad=0)
     {
         $out = '';
@@ -161,6 +185,7 @@ class DocGenerator
         $md .= $this->make_notes();
         $md .= $this->make_sources();
         $md .= $this->make_parameters();
+        $md .= $this->make_examples();
 
         return $md;
     }
