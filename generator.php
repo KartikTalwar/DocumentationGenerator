@@ -167,21 +167,8 @@ class DocGenerator
     public function make_examples() {
         $out  = $this->_h(2, 'Examples');
         $out .= $this->make_call();
-        $out .= $this->handle_urls();
+        $out .= $this->_list($this->data->request_examples, 0, true);
         $out .= $this->_n();
-
-        return $out;
-    }
-
-
-    private function handle_urls() {
-        $out  = '```'.$this->_n(1);
-
-        foreach($this->data->request_examples as $i) {
-            $out .= $i.$this->_n(1);
-        }
-
-        $out .= '```';
 
         return $out;
     }
@@ -223,11 +210,12 @@ class DocGenerator
     }
 
 
-    private function _list($arr, $pad=0) {
+    private function _list($arr, $pad=0, $bold=false) {
         $out = '';
+        $b   = ($bold) ? '**' : '';
 
         foreach($arr as $i) {
-            $out .= str_repeat(' ', $pad).'- '. $i.$this->_n(1);
+            $out .= str_repeat(' ', $pad).'- '. $b . $i. $b .$this->_n(1);
         }
 
         return $out;
