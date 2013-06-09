@@ -11,6 +11,7 @@ class DocGenerator
 
     public function __construct($schema_file)
     {
+        $this->api_prefix = 'http://api.uwaterloo.ca/public';
         $this->data_file = $schema_file;
         $this->load_data();
     }
@@ -151,7 +152,7 @@ class DocGenerator
     {
         $out  = (!$arr) ? $this->_h(2, 'Response') : '';
         $out .= "<table>\n";
-        $out .= (!$arr) ? $this->_row('Field Name', 'Type', 'Value Description') : '';
+        $out .= (!$arr) ? $this->_row('Field Name', 'Type', 'Value Description', true) : '';
 
         $data = ($arr) ? $arr : $this->data->response_fields;
 
@@ -169,6 +170,7 @@ class DocGenerator
         }
 
         $out .= "</table>\n";
+        $out .= (!$arr) ? $this->_n() : '';
 
         return $out;
     }
