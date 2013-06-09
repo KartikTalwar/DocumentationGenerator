@@ -1,0 +1,69 @@
+{
+  "method_id"           : 1209,
+  "method_url"          : "/v2/foodservices/{year}/menu.{format}",
+  "method_name"         : "Weekly food menu",
+  "service_id"          : 209,
+  "service_name"        : "foodservices",
+  "request_protocol"    : "GET",
+  "is_authenticated"    : true,
+  "update_frequency"    : "Every minute",
+  "cache_time_s"        : 60,
+  "data_type"           : "Scraped/direct db",
+  "data_source"         : [
+                           "http://foodservices.uwaterloo.ca"
+                          ],
+  "method_description"  : "This method returns the server time and api key reset time",
+  "additional_notes"    : [
+                           "Usage won't increase if there is not data returned",
+                           "We cannot modify the data from this method"
+                          ],
+  "information_steward" : "UW Foodservices",
+  "request_examples"    : [
+                           "/v2/foodservices/2013/menu.json",
+                           "/v2/foodservices/2013/menu.json?callback=MYRESPONSE",
+                           "/v2/foodservices/2012/menu.xml"
+                          ],
+  "response_formats"    : [
+                           "json",
+                           "xml"
+                          ],
+  "method_parameters"   : [
+                           {
+                            "parameter"   : "year",
+                            "description" : "The year for menu to be requested",
+                            "is_required" : true,
+                            "type"        : "input"
+                           },
+                           {
+                            "parameter"   : "format",
+                            "description" : "The format of the output",
+                            "is_required" : true,
+                            "type"        : "input"
+                           },
+                           {
+                            "parameter"   : "callbacl",
+                            "description" : "JSONP callback format",
+                            "is_required" : true,
+                            "type"        : "filter"
+                           }
+                          ],
+  "response_fields"     : [
+                           {
+                            "field"       : "current_year",
+                            "description" : "The year for menu to be requested",
+                            "type"        : "integer",
+                            "children"    : [
+                                             {
+                                              "field"       : "year_timestamp",
+                                              "description" : "Timestamp of the given year",
+                                              "type"        : "string"
+                                             }
+                                            ]
+                           },
+                           {
+                            "field"       : "current_month",
+                            "description" : "The month for menu to be requested",
+                            "type"        : "list"
+                           }
+                          ]
+}
