@@ -6,3 +6,19 @@ Given API method schema, the following class will generate a mardown documentati
 
 - [Input](schema.json)
 - [Output](method.md)
+
+
+### Usage
+
+```php
+<?php
+
+require 'generator.php';
+
+$api_schema = 'schema.json';
+$generator  = new DocGenerator($api_schema);
+
+echo $generator->compile();
+
+?>
+```
