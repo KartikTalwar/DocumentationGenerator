@@ -133,7 +133,7 @@ class DocGenerator
         $out .= "<table>\n";
         $out .= $this->_row('Name', 'Value', 'Name', 'Value', true);
         $out .= $this->_row('Request Protocol', $this->data->request_protocol, 'Requires API Key', ($this->data->is_authenticated) ?  'Yes' : 'No');
-        $out .= $this->_row('Method ID', $this->data->method_id, 'Enabled', ($this->data->method_id) ? 'Yes' : 'No');
+        $out .= $this->_row('Method ID', $this->data->method_id, 'Enabled', ($this->data->is_enabled) ? 'Yes' : 'No');
         $out .= $this->_row('Service Name', $this->data->service_name, 'Service ID', $this->data->service_id);
         $out .= $this->_row('Information Steward', $this->data->information_steward, 'Data Type', $this->data->data_type);
         $out .= $this->_row('Update Frequency', $this->data->update_frequency, 'Cache Time', $this->data->cache_time_s.' seconds');
