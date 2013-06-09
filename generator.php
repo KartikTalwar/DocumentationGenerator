@@ -131,16 +131,12 @@ class DocGenerator
     {
         $out  = $this->_h(2, 'Summary');
         $out .= "<table>\n";
-        $out .= $this->_row('Name', 'Value', null, true);
-        $out .= $this->_row('Request Protocol', $this->data->request_protocol);
-        $out .= $this->_row('Method ID', $this->data->method_id);
-        $out .= $this->_row('Service Name', $this->data->service_name);
-        $out .= $this->_row('Service ID', $this->data->service_id);
-        $out .= $this->_row('Requires API Key', ($this->data->is_authenticated) ?  'Yes' : 'No');
-        $out .= $this->_row('Cache Time', $this->data->cache_time_s.' seconds');
-        $out .= $this->_row('Information Steward', $this->data->information_steward);
-        $out .= $this->_row('Data Type', $this->data->data_type);
-        $out .= $this->_row('Update Frequency', $this->data->update_frequency);
+        $out .= $this->_row('Name', 'Value', 'Name', 'Value', true);
+        $out .= $this->_row('Request Protocol', $this->data->request_protocol, 'Requires API Key', ($this->data->is_authenticated) ?  'Yes' : 'No');
+        $out .= $this->_row('Method ID', $this->data->method_id, 'Enabled', ($this->data->method_id) ? 'Yes' : 'No');
+        $out .= $this->_row('Service Name', $this->data->service_name, 'Service ID', $this->data->service_id);
+        $out .= $this->_row('Information Steward', $this->data->information_steward, 'Data Type', $this->data->data_type);
+        $out .= $this->_row('Update Frequency', $this->data->update_frequency, 'Cache Time', $this->data->cache_time_s.' seconds');
         $out .= "</table>\n";
         $out .= $this->_n();
 
@@ -152,7 +148,7 @@ class DocGenerator
     {
         $out  = (!$arr) ? $this->_h(2, 'Response') : '';
         $out .= "<table>\n";
-        $out .= (!$arr) ? $this->_row('Field Name', 'Type', 'Value Description', true) : '';
+        $out .= (!$arr) ? $this->_row('Field Name', 'Type', 'Value Description', null, true) : '';
 
         $data = ($arr) ? $arr : $this->data->response_fields;
 
@@ -176,17 +172,21 @@ class DocGenerator
     }
 
 
-    private function _row($l, $r, $m=null, $b_all=false)
+    private function _row($l, $r, $m=null, $n=null, $b_all=false)
     {
         if($b_all)
         {
             $r = '<b>'.$r.'</b>';
             $m = ($m != null) ? '<b>'.$m.'</b>' : null;
+            $n = ($n != null) ? '<b>'.$n.'</b>' : null;
         }
+
+        $x = ($m != null && $n != null) ? '<b>'.$m.'</b>': $m;
 
         $out  = "  <tr>\n    <td><b>$l</b></td>\n";
         $out .= "    <td>$r</td>\n";
-        $out .= ($m != null) ? "    <td>$m</td>\n" : '';
+        $out .= ($m != null) ? "    <td>$x</td>\n" : '';
+        $out .= ($n != null) ? "    <td>$n</td>\n" : '';
         $out .= "  </tr>\n";
 
         return $out;
