@@ -24,14 +24,14 @@ class DocGenerator
     }
 
 
-    private function make_header() {
+    public function make_header() {
         $out  = $this->_h(1, $this->data->method_name);
 
         return $out;
     }
 
 
-    private function make_call() {
+    public function make_call() {
         $out  = "```\n";
         $out .= $this->data->request_protocol.' '.$this->data->method_url;
         $out .= "\n```";
@@ -41,7 +41,7 @@ class DocGenerator
     }
 
 
-    private function make_description() {
+    public function make_description() {
         $out  = $this->_h(2, 'Description');
         $out .= $this->_q($this->data->method_description);
         $out .= $this->_n();
@@ -50,7 +50,7 @@ class DocGenerator
     }
 
 
-    private function make_notes() {
+    public function make_notes() {
         $out  = $this->_h(3, 'Notes');
         $out .= $this->_list($this->data->additional_notes);
         $out .= $this->_n();
@@ -59,7 +59,7 @@ class DocGenerator
     }
 
 
-    private function make_parameters() {
+    public function make_parameters() {
         $out  = $this->_h(2, 'Parameters');
         $out .= $this->make_call();
         $out .= $this->handle_input_params($this->data->method_parameters);
@@ -103,7 +103,7 @@ class DocGenerator
     }
 
 
-    private function make_sources() {
+    public function make_sources() {
         $out  = $this->_h(3, 'Sources');
         $out .= $this->_list($this->data->data_source);
         $out .= $this->_n();
@@ -112,7 +112,7 @@ class DocGenerator
     }
 
 
-    private function make_summary() {
+    public function make_summary() {
         $out  = $this->_h(2, 'Summary');
         $out .= "<table>\n";
         $out .= $this->_row('Name', 'Value', 'Name', 'Value', true);
@@ -128,7 +128,7 @@ class DocGenerator
     }
 
 
-    private function make_response($arr=false, $depth=1) {
+    public function make_response($arr=false, $depth=1) {
         $out  = (!$arr) ? $this->_h(2, 'Response') : '';
         $out .= "<table>\n";
         $out .= (!$arr) ? $this->_row('Field Name', 'Type', 'Value Description', null, true) : '';
@@ -151,7 +151,7 @@ class DocGenerator
     }
 
 
-    private function make_output() {
+    public function make_output() {
         $out  = $this->_h(1, 'Output');
         $out .= $this->_h(4, 'JSON')."```json\n";
         $out .= file_get_contents($this->data->request_examples[0]);
@@ -164,7 +164,7 @@ class DocGenerator
     }
 
 
-    private function make_examples() {
+    public function make_examples() {
         $out  = $this->_h(2, 'Examples');
         $out .= $this->make_call();
         $out .= $this->handle_urls();
