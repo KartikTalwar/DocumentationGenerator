@@ -78,6 +78,7 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
 
 ### Filter
 
+- **key** - Your API key  *(required)*
 - **callback** - JSONP callback format  *(optional)*
 
 
@@ -223,7 +224,7 @@ http://api.uwaterloo.ca/public/v2/foodservices/2013/15/menu.json?callback=myResp
 {
   "meta":{
     "requests":-1,
-    "timestamp":1370799943,
+    "timestamp":1370801894,
     "status":511,
     "message":"API key is required (?key=)",
     "method_id":1153,
@@ -245,7 +246,7 @@ http://api.uwaterloo.ca/public/v2/foodservices/2013/15/menu.json?callback=myResp
 <response>
   <meta>
     <requests>-1</requests>
-    <timestamp>1370799943</timestamp>
+    <timestamp>1370801895</timestamp>
     <status>511</status>
     <message>API key is required (?key=)</message>
     <method_id>1153</method_id>
