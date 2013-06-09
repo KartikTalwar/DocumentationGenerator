@@ -67,6 +67,7 @@ class DocGenerator
     private function make_parameters()
     {
         $out  = $this->_h(2, 'Parameters');
+        $out .= $this->make_call();
         $out .= $this->handle_input_params($this->data->method_parameters);
         $out .= $this->handle_filter_params($this->data->method_parameters);
 
