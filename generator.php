@@ -186,7 +186,22 @@ class DocGenerator
 
         $out  = "  <tr>\n    <td><b>$l</b></td>\n";
         $out .= "    <td>$r</td>\n";
-        $out .= ($m != null) ? "    <td>$m</td>\n  </tr>\n" : '';
+        $out .= ($m != null) ? "    <td>$m</td>\n" : '';
+        $out .= "  </tr>\n";
+
+        return $out;
+    }
+
+
+    private function make_output()
+    {
+        $out  = $this->_h(1, 'Output');
+        $out .= $this->_h(4, 'JSON')."```json\n";
+        $out .= file_get_contents($this->api_prefix.$this->data->request_examples[0]);
+        $out .= "\n```".$this->_n();
+        $out .= $this->_h(4, 'XML')."```xml\n";
+        $out .= file_get_contents(str_replace('json', 'xml', $this->api_prefix.$this->data->request_examples[0]));
+        $out .= "\n```".$this->_n();
 
         return $out;
     }
@@ -260,6 +275,7 @@ class DocGenerator
         $md .= $this->make_parameters();
         $md .= $this->make_examples();
         $md .= $this->make_response();
+        $md .= $this->make_output();
 
         return $md;
     }

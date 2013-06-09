@@ -19,7 +19,7 @@
                           ],
   "information_steward" : "UW Foodservices",
   "request_examples"    : [
-                           "/v2/foodservices/2013/menu.json",
+                           "/v2/foodservices/2013/42/menu.json",
                            "/v2/foodservices/2013/menu.json?callback=MYRESPONSE",
                            "/v2/foodservices/2012/menu.xml"
                           ],
