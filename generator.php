@@ -9,16 +9,14 @@ class DocGenerator
     public $data;
 
 
-    public function __construct($schema_file)
-    {
+    public function __construct($schema_file) {
         $this->api_prefix = 'http://api.uwaterloo.ca/public';
         $this->data_file = $schema_file;
         $this->load_data();
     }
 
 
-    private function load_data()
-    {
+    private function load_data() {
         $get  = file_get_contents($this->data_file);
         $load = json_decode($get);
 
@@ -26,16 +24,14 @@ class DocGenerator
     }
 
 
-    private function make_header()
-    {
+    private function make_header() {
         $out  = $this->_h(1, $this->data->method_name);
 
         return $out;
     }
 
 
-    private function make_call()
-    {
+    private function make_call() {
         $out  = "```\n";
         $out .= $this->data->request_protocol.' '.$this->data->method_url;
         $out .= "\n```";
@@ -45,8 +41,7 @@ class DocGenerator
     }
 
 
-    private function make_description()
-    {
+    private function make_description() {
         $out  = $this->_h(2, 'Description');
         $out .= $this->_q($this->data->method_description);
         $out .= $this->_n();
@@ -55,8 +50,7 @@ class DocGenerator
     }
 
 
-    private function make_notes()
-    {
+    private function make_notes() {
         $out  = $this->_h(3, 'Notes');
         $out .= $this->_list($this->data->additional_notes);
         $out .= $this->_n();
@@ -65,8 +59,7 @@ class DocGenerator
     }
 
 
-    private function make_parameters()
-    {
+    private function make_parameters() {
         $out  = $this->_h(2, 'Parameters');
         $out .= $this->make_call();
         $out .= $this->handle_input_params($this->data->method_parameters);
@@ -76,20 +69,16 @@ class DocGenerator
     }
 
 
-    private function handle_input_params($arr)
-    {
+    private function handle_input_params($arr) {
         $out = $this->_h(3, 'Input');
 
-        foreach($arr as $i)
-        {
-            if($i->type == 'input')
-            {
+        foreach($arr as $i) {
+            if($i->type == 'input') {
                 $out .= '- **'.$i->parameter.'** - '.$i->description.'  ';
                 $out .= ($i->is_required) ? '*(required)*' : '*(optional)*' ;
                 $out .= $this->_n(1);
 
-                if($i->parameter == 'format')
-                {
+                if($i->parameter == 'format') {
                     $out .= $this->_list($this->data->response_formats, 2);
                 }
             }
@@ -99,14 +88,11 @@ class DocGenerator
     }
 
 
-    private function handle_filter_params($arr)
-    {
+    private function handle_filter_params($arr) {
         $out = $this->_h(3, 'Filter');
 
-        foreach($arr as $i)
-        {
-            if($i->type == 'filter')
-            {
+        foreach($arr as $i) {
+            if($i->type == 'filter') {
                 $out .= '- **'.$i->parameter.'** - '.$i->description. '  ';
                 $out .= ($i->is_required) ? '*(required)*' : '*(optional)*' ;
                 $out .= $this->_n(1);
@@ -117,8 +103,7 @@ class DocGenerator
     }
 
 
-    private function make_sources()
-    {
+    private function make_sources() {
         $out  = $this->_h(3, 'Sources');
         $out .= $this->_list($this->data->data_source);
         $out .= $this->_n();
@@ -127,8 +112,7 @@ class DocGenerator
     }
 
 
-    private function make_summary()
-    {
+    private function make_summary() {
         $out  = $this->_h(2, 'Summary');
         $out .= "<table>\n";
         $out .= $this->_row('Name', 'Value', 'Name', 'Value', true);
@@ -144,23 +128,18 @@ class DocGenerator
     }
 
 
-    private function make_response($arr=false, $depth=1)
-    {
+    private function make_response($arr=false, $depth=1) {
         $out  = (!$arr) ? $this->_h(2, 'Response') : '';
         $out .= "<table>\n";
         $out .= (!$arr) ? $this->_row('Field Name', 'Type', 'Value Description', null, true) : '';
 
         $data = ($arr) ? $arr : $this->data->response_fields;
 
-        foreach($data as $i)
-        {
+        foreach($data as $i) {
             $child = $i->children;
-            if($child)
-            {
+            if($child) {
                 $out .= $this->_row($i->field, $i->type, $i->description."<br>".$this->make_response($child, $depth+1));
-            }
-            else
-            {
+            } else {
                 $out .= $this->_row($i->field, $i->type, ($depth > 4) ? null : $i->description);
             }
         }
@@ -172,10 +151,8 @@ class DocGenerator
     }
 
 
-    private function _row($l, $r, $m=null, $n=null, $b_all=false)
-    {
-        if($b_all)
-        {
+    private function _row($l, $r, $m=null, $n=null, $b_all=false) {
+        if($b_all) {
             $r = '<b>'.$r.'</b>';
             $m = ($m != null) ? '<b>'.$m.'</b>' : null;
             $n = ($n != null) ? '<b>'.$n.'</b>' : null;
@@ -193,8 +170,7 @@ class DocGenerator
     }
 
 
-    private function make_output()
-    {
+    private function make_output() {
         $out  = $this->_h(1, 'Output');
         $out .= $this->_h(4, 'JSON')."```json\n";
         $out .= file_get_contents($this->data->request_examples[0]);
@@ -207,8 +183,7 @@ class DocGenerator
     }
 
 
-    private function make_examples()
-    {
+    private function make_examples() {
         $out  = $this->_h(2, 'Examples');
         $out .= $this->make_call();
         $out .= $this->handle_urls();
@@ -218,26 +193,23 @@ class DocGenerator
     }
 
 
-    private function handle_urls()
-    {
+    private function handle_urls() {
         $out  = '```'.$this->_n(1);
 
-        foreach($this->data->request_examples as $i)
-        {
+        foreach($this->data->request_examples as $i) {
             $out .= $i.$this->_n(1);
         }
 
         $out .= '```';
+
         return $out;
     }
 
 
-    private function _list($arr, $pad=0)
-    {
+    private function _list($arr, $pad=0) {
         $out = '';
 
-        foreach($arr as $i)
-        {
+        foreach($arr as $i) {
             $out .= str_repeat(' ', $pad).'- '. $i.$this->_n(1);
         }
 
@@ -245,26 +217,22 @@ class DocGenerator
     }
 
 
-    private function _h($i, $str)
-    {
+    private function _h($i, $str) {
         return str_repeat('#', $i).' '.$str.$this->_n();
     }
 
 
-    private function _q($str)
-    {
+    private function _q($str) {
         return '> '.$str;
     }
 
 
-    private function _n($i=2)
-    {
+    private function _n($i=2) {
         return str_repeat("\n", $i);
     }
 
 
-    public function compile()
-    {
+    public function compile() {
         $md  = '';
         $md .= $this->make_header();
         $md .= $this->make_call();
@@ -281,6 +249,7 @@ class DocGenerator
     }
 
 }
+
 
 
 $schema = 'schema.json';
