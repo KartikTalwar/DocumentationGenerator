@@ -144,7 +144,7 @@ class DocGenerator
     }
 
 
-    private function make_response($arr=false)
+    private function make_response($arr=false, $depth=1)
     {
         $out  = (!$arr) ? $this->_h(2, 'Response') : '';
         $out .= "<table>\n";
@@ -157,11 +157,11 @@ class DocGenerator
             $child = $i->children;
             if($child)
             {
-                $out .= $this->_row($i->field, $i->type, $i->description."<br>".$this->make_response($child));
+                $out .= $this->_row($i->field, $i->type, $i->description."<br>".$this->make_response($child, $depth+1));
             }
             else
             {
-                $out .= $this->_row($i->field, $i->type, $i->description);
+                $out .= $this->_row($i->field, $i->type, ($depth > 2) ? null : $i->description);
             }
         }
 
