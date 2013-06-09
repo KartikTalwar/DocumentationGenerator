@@ -130,7 +130,7 @@ class DocGenerator
     {
         $out  = $this->_h(2, 'Summary');
         $out .= "<table>\n";
-        $out .= $this->_row('Name', 'Value', true);
+        $out .= $this->_row('Name', 'Value', null, true);
         $out .= $this->_row('Request Protocol', $this->data->request_protocol);
         $out .= $this->_row('Method ID', $this->data->method_id);
         $out .= $this->_row('Service Name', $this->data->service_name);
@@ -147,15 +147,44 @@ class DocGenerator
     }
 
 
-    private function _row($l, $r, $b_all=false)
+    private function make_response($arr=false)
+    {
+        $out  = (!$arr) ? $this->_h(2, 'Response') : '';
+        $out .= "<table>\n";
+        $out .= (!$arr) ? $this->_row('Field Name', 'Type', 'Value Description') : '';
+
+        $data = ($arr) ? $arr : $this->data->response_fields;
+
+        foreach($data as $i)
+        {
+            $child = $i->children;
+            if($child)
+            {
+                $out .= $this->_row($i->field, $i->type, $this->make_response($child));
+            }
+            else
+            {
+                $out .= $this->_row($i->field, $i->type, $i->description);
+            }
+        }
+
+        $out .= "</table>\n";
+
+        return $out;
+    }
+
+
+    private function _row($l, $r, $m=null, $b_all=false)
     {
         if($b_all)
         {
             $r = '<b>'.$r.'</b>';
+            $m = ($m != null) ? '<b>'.$m.'</b>' : null;
         }
 
         $out  = "  <tr>\n    <td><b>$l</b></td>\n";
-        $out .= "    <td>$r</td>\n  </tr>\n";
+        $out .= "    <td>$r</td>\n";
+        $out .= ($m != null) ? "    <td>$m</td>\n  </tr>\n" : '';
 
         return $out;
     }
@@ -228,6 +257,7 @@ class DocGenerator
         $md .= $this->make_sources();
         $md .= $this->make_parameters();
         $md .= $this->make_examples();
+        $md .= $this->make_response();
 
         return $md;
     }
