@@ -120,6 +120,36 @@ class DocGenerator
     }
 
 
+    private function make_summary()
+    {
+        $out  = $this->_h(2, 'Summary');
+        $out .= "<table>\n";
+        $out .= $this->_row('Name', 'Value');
+        $out .= $this->_row('Request Protocol', $this->data->request_protocol);
+        $out .= $this->_row('Method ID', $this->data->method_id);
+        $out .= $this->_row('Service Name', $this->data->service_name);
+        $out .= $this->_row('Service ID', $this->data->service_id);
+        $out .= $this->_row('Requires API Key', ($this->data->is_authenticated) ?  'Yes' : 'No');
+        $out .= $this->_row('Cache Time', $this->data->cache_time_s.' seconds');
+        $out .= $this->_row('Information Steward', $this->data->information_steward);
+        $out .= $this->_row('Data Type', $this->data->data_type);
+        $out .= $this->_row('Update Frequency', $this->data->update_frequency);
+        $out .= "</table>\n";
+        $out .= $this->_n();
+
+        return $out;
+    }
+
+
+    private function _row($l, $r)
+    {
+        $out  = "  <tr>\n    <td><b>$l</b></td>\n";
+        $out .= "    <td>$r</td>\n  </tr>\n";
+
+        return $out;
+    }
+
+
     private function make_examples()
     {
         $out  = $this->_h(2, 'Examples');
@@ -182,6 +212,7 @@ class DocGenerator
         $md .= $this->make_header();
         $md .= $this->make_call();
         $md .= $this->make_description();
+        $md .= $this->make_summary();
         $md .= $this->make_notes();
         $md .= $this->make_sources();
         $md .= $this->make_parameters();
