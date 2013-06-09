@@ -161,7 +161,7 @@ class DocGenerator
             }
             else
             {
-                $out .= $this->_row($i->field, $i->type, ($depth > 2) ? null : $i->description);
+                $out .= $this->_row($i->field, $i->type, ($depth > 4) ? null : $i->description);
             }
         }
 
