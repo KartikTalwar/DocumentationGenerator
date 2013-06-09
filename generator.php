@@ -48,6 +48,29 @@ class DocGenerator
     {
         $out  = $this->_h(2, 'Description');
         $out .= $this->_q($this->data->method_description);
+        $out .= $this->_n();
+
+        return $out;
+    }
+
+
+    private function make_notes()
+    {
+        $out  = $this->_h(3, 'Notes');
+        $out .= $this->_list($this->data->additional_notes);
+
+        return $out;
+    }
+
+
+    private function _list($arr)
+    {
+        $out = '';
+
+        foreach($arr as $i)
+        {
+            $out .= '- '. $i;
+        }
 
         return $out;
     }
@@ -77,6 +100,7 @@ class DocGenerator
         $md .= $this->make_header();
         $md .= $this->make_call();
         $md .= $this->make_description();
+        $md .= $this->make_notes();
 
         return $md;
     }
