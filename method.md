@@ -67,19 +67,49 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
 GET /v2/foodservices/{year}/{week}/menu.{format}
 ```
 
-### Input
+<table>
+  <tr>
+    <td><b>Parameter</b></td>
+    <td><b>Type</b></td>
+    <td><b><b>Required</b></b></td>
+    <td><b>Description</b></td>
+  </tr>
+  <tr>
+    <td><b>year</b></td>
+    <td>input</td>
+    <td>Yes</td>
+    <td>The year of menu to be requested</td>
+  </tr>
+  <tr>
+    <td><b>week</b></td>
+    <td>input</td>
+    <td>Yes</td>
+    <td>The week number of the menu to be requested</td>
+  </tr>
+  <tr>
+    <td><b>format</b></td>
+    <td>input</td>
+    <td>Yes</td>
+    <td>The format of the output</td>
+  </tr>
+  <tr>
+    <td><b>key</b></td>
+    <td>filter</td>
+    <td>Yes</td>
+    <td>Your API key</td>
+  </tr>
+  <tr>
+    <td><b>callback</b></td>
+    <td>filter</td>
+    <td>No</td>
+    <td>JSONP callback format</td>
+  </tr>
+</table>
 
-- **year** - The year of menu to be requested  *(required)*
-- **week** - The week number of the menu to be requested  *(required)*
-- **format** - The format of the output  *(required)*
-  - json
-  - xml
+**Output Formats**
 
-
-### Filter
-
-- **key** - Your API key  *(required)*
-- **callback** - JSONP callback format  *(optional)*
+- json
+- xml
 
 
 ## Examples
@@ -223,7 +253,7 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
 {
   "meta":{
     "requests":-1,
-    "timestamp":1370802917,
+    "timestamp":1370828560,
     "status":511,
     "message":"API key is required (?key=)",
     "method_id":1153,
@@ -245,7 +275,7 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
 <response>
   <meta>
     <requests>-1</requests>
-    <timestamp>1370802918</timestamp>
+    <timestamp>1370828560</timestamp>
     <status>511</status>
     <message>API key is required (?key=)</message>
     <method_id>1153</method_id>
