@@ -62,8 +62,14 @@ class DocGenerator
     public function make_parameters() {
         $out  = $this->_h(2, 'Parameters');
         $out .= $this->make_call();
-        $out .= $this->handle_input_params($this->data->method_parameters);
-        $out .= $this->handle_filter_params($this->data->method_parameters);
+        $out .= "<table>\n";
+        $out .= $this->_row('Parameter', 'Type', 'Required', 'Description', true);
+
+        foreach($this->data->method_parameters as $param) {
+            $out .= $this->_row($param->parameter, $param->type, ($param->is_required) ? 'Yes' : 'No', $param->description, false, false);
+        }
+
+        $out .= "</table>\n";
 
         return $out;
     }
@@ -191,7 +197,7 @@ class DocGenerator
     }
 
 
-    private function _row($l, $r, $m=null, $n=null, $b_all=false) {
+    private function _row($l, $r, $m=null, $n=null, $b_all=false, $b_third=true) {
         if($b_all) {
             $r = '<b>'.$r.'</b>';
             $m = ($m != null) ? '<b>'.$m.'</b>' : null;
@@ -199,6 +205,7 @@ class DocGenerator
         }
 
         $x = ($m != null && $n != null) ? '<b>'.$m.'</b>': $m;
+        $x = ($b_third) ? $x : $m ;
 
         $out  = "  <tr>\n    <td><b>$l</b></td>\n";
         $out .= "    <td>$r</td>\n";
