@@ -66,7 +66,9 @@ class DocGenerator
         $out .= $this->_row('Parameter', 'Type', 'Required', 'Description', true);
 
         foreach($this->data->method_parameters as $param) {
-            $out .= $this->_row($param->parameter, $param->type, ($param->is_required) ? $this->_i('yes') : $this->_i('no'), $param->description, false, false);
+            $out .= $this->_row($param->parameter, $param->type,
+                                ($param->is_required) ? $this->_i('yes', false) : $this->_i('no', false),
+                                $param->description, false, false);
         }
 
         $out .= "</table>".$this->_n();
@@ -217,8 +219,8 @@ class DocGenerator
     }
 
 
-    private function _i($str) {
-        return '*'.$str.'*';
+    private function _i($str, $md=true) {
+        return ($md) ? '*'.$str.'*' : '<i>'.$str.'</i>';
     }
 
 }
