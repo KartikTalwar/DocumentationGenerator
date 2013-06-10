@@ -69,7 +69,9 @@ class DocGenerator
             $out .= $this->_row($param->parameter, $param->type, ($param->is_required) ? 'Yes' : 'No', $param->description, false, false);
         }
 
-        $out .= "</table>\n";
+        $out .= "</table>".$this->_n();
+        $out .= $this->_b('Output Formats').$this->_n();
+        $out .= $this->_list($this->data->response_formats).$this->_n();
 
         return $out;
     }
@@ -207,6 +209,11 @@ class DocGenerator
 
     private function _n($i=2) {
         return str_repeat("\n", $i);
+    }
+
+
+    private function _b($str) {
+        return '**'.$str.'**';
     }
 
 }
