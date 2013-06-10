@@ -75,40 +75,6 @@ class DocGenerator
     }
 
 
-    private function handle_input_params($arr) {
-        $out = $this->_h(3, 'Input');
-
-        foreach($arr as $i) {
-            if($i->type == 'input') {
-                $out .= '- **'.$i->parameter.'** - '.$i->description.'  ';
-                $out .= ($i->is_required) ? '*(required)*' : '*(optional)*' ;
-                $out .= $this->_n(1);
-
-                if($i->parameter == 'format') {
-                    $out .= $this->_list($this->data->response_formats, 2);
-                }
-            }
-        }
-
-        return $out.$this->_n();
-    }
-
-
-    private function handle_filter_params($arr) {
-        $out = $this->_h(3, 'Filter');
-
-        foreach($arr as $i) {
-            if($i->type == 'filter') {
-                $out .= '- **'.$i->parameter.'** - '.$i->description. '  ';
-                $out .= ($i->is_required) ? '*(required)*' : '*(optional)*' ;
-                $out .= $this->_n(1);
-            }
-        }
-
-        return $out.$this->_n();
-    }
-
-
     public function make_sources() {
         $out  = $this->_h(3, 'Sources');
         $out .= $this->_list($this->data->data_source);
