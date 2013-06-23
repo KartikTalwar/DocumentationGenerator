@@ -253,7 +253,7 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
 {
   "meta":{
     "requests":-1,
-    "timestamp":1370828940,
+    "timestamp":1371979581,
     "status":511,
     "message":"API key is required (?key=)",
     "method_id":1153,
@@ -266,23 +266,5 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
     
   }
 }
-```
-
-#### XML
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<response>
-  <meta>
-    <requests>-1</requests>
-    <timestamp>1370828940</timestamp>
-    <status>511</status>
-    <message>API key is required (?key=)</message>
-    <method_id>1153</method_id>
-    <version>2.05</version>
-    <method></method>
-  </meta>
-  <data></data>
-</response>
 ```
 
