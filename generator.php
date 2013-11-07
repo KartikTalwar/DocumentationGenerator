@@ -113,7 +113,7 @@ class DocGenerator
         $data = ($arr) ? $arr : $this->data->response_fields;
 
         foreach($data as $i) {
-            if($i->children) {
+            if(isset($i->children)) {
                 $out .= $this->_row($i->field, $i->type, $i->description."<br>".$this->make_response($child, $depth+1));
             } else {
                 $out .= $this->_row($i->field, $i->type, ($depth > 4) ? null : $i->description);
@@ -138,7 +138,7 @@ class DocGenerator
 
 
     public function make_examples() {
-        $out .= $this->_h(2, 'Examples');
+        $out  = $this->_h(2, 'Examples');
         $out .= $this->make_call();
         $out .= $this->_list($this->data->request_examples, 0, true);
         $out .= $this->_n();
