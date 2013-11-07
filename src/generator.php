@@ -114,7 +114,7 @@ class DocGenerator
 
         foreach($data as $i) {
             if(isset($i->children)) {
-                $out .= $this->_row($i->field, $i->type, $i->description."<br>".$this->make_response($child, $depth+1));
+                $out .= $this->_row($i->field, $i->type, $i->description."<br>".$this->make_response($i->children, $depth+1));
             } else {
                 $out .= $this->_row($i->field, $i->type, ($depth > 4) ? null : $i->description);
             }
@@ -225,14 +225,6 @@ class DocGenerator
     }
 
 }
-
-
-
-$api_key    = 'yourapikey';
-$generator  = new DocGenerator($api_key);
-$input_file = $argv[1];
-
-echo $generator->compile($input_file);
 
 
 ?>

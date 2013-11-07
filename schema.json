@@ -20,9 +20,9 @@
    ],
    "information_steward":"UW FoodServices",
    "request_examples":[
-      "http://api.uwaterloo.ca/public/v2/foodservices/2013/12/menu.json",
-      "http://api.uwaterloo.ca/public/v2/foodservices/2013/22/menu.xml",
-      "http://api.uwaterloo.ca/public/v2/foodservices/2013/15/menu.json?callback=myResponse"
+      "http://api.uwaterloo.ca/v2/foodservices/2013/12/menu.json",
+      "http://api.uwaterloo.ca/v2/foodservices/2013/22/menu.xml",
+      "http://api.uwaterloo.ca/v2/foodservices/2013/15/menu.json?callback=myResponse"
    ],
    "response_formats":[
       "json",

@@ -54,6 +54,7 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
 
 - Usage won't increase if there is not data returned
 - We cannot modify the data from this method
+- Any value can be `null`
 
 
 ### Sources
@@ -118,9 +119,9 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
 GET /v2/foodservices/{year}/{week}/menu.{format}
 ```
 
-- **http://api.uwaterloo.ca/public/v2/foodservices/2013/12/menu.json**
-- **http://api.uwaterloo.ca/public/v2/foodservices/2013/22/menu.xml**
-- **http://api.uwaterloo.ca/public/v2/foodservices/2013/15/menu.json?callback=myResponse**
+- **http://api.uwaterloo.ca/v2/foodservices/2013/12/menu.json**
+- **http://api.uwaterloo.ca/v2/foodservices/2013/22/menu.xml**
+- **http://api.uwaterloo.ca/v2/foodservices/2013/15/menu.json?callback=myResponse**
 
 
 ## Response
@@ -245,19 +246,21 @@ GET /v2/foodservices/{year}/{week}/menu.{format}
 </table>
 
 
-# Output
+Any value can be `null`
+
+## Output
 
 #### JSON
 
 ```json
 {
   "meta":{
-    "requests":204,
-    "timestamp":1371979672,
+    "requests":4799,
+    "timestamp":1383864589,
     "status":200,
     "message":"Request successful",
-    "method_id":1153,
-    "version":2.05,
+    "method_id":1291,
+    "version":2.07,
     "method":{
       
     }
