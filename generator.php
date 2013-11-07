@@ -10,7 +10,7 @@ class DocGenerator
 
 
     public function __construct($schema_file) {
-        $this->api_prefix = 'http://api.uwaterloo.ca/public';
+        $this->api_prefix = 'https://api.uwaterloo.ca';
         $this->data_file = $schema_file;
         $this->load_data();
     }
@@ -112,8 +112,7 @@ class DocGenerator
         $data = ($arr) ? $arr : $this->data->response_fields;
 
         foreach($data as $i) {
-            $child = $i->children;
-            if($child) {
+            if($i->children) {
                 $out .= $this->_row($i->field, $i->type, $i->description."<br>".$this->make_response($child, $depth+1));
             } else {
                 $out .= $this->_row($i->field, $i->type, ($depth > 4) ? null : $i->description);
